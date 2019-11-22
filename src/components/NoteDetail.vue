@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    data () {
+    data() {
       return {
         msg: '笔记详情页'
       }
