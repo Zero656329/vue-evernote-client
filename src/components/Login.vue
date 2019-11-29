@@ -35,10 +35,10 @@
 
 <script>
   import Auth from "@/apis/auth"
-
-  Auth.getInfo().then(data => {
+  import Bus from '@/helpers/bus'
+  /*Auth.getInfo().then(data => {
     console.log(data)
-  })
+  })*/
 
   export default {
     data() {
@@ -87,7 +87,10 @@
         console.log(`start register..., username: ${this.register.username} , password: ${this.register.password}`)
 
         Auth.register({username: this.login.username, password: this.login.password}).then(data => {
-          console.log(data)
+          this.login.isError=false
+          this.login.notice=''
+          Bus.$emit('userInfo',{username:this.login.username})
+          this.$router.push({path:'notebooks'})
         })
       },
       onLogin() {
@@ -108,7 +111,10 @@
 
         console.log(`start login..., username: ${this.login.username} , password: ${this.login.password}`)
         Auth.login({username: this.login.username, password: this.login.password}).then(data => {
-          console.log(data)
+         this.login.isError=false
+          this.login.notice=''
+          Bus.$emit('userInfo',{username:this.login.username})
+         this.$router.push({path:'notebooks'})
         })
 
 
